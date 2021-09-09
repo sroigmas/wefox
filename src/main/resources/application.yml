@@ -10,3 +10,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/payments
     username: tech
     password: test
+
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: payments
+    topics:
+      online: online
+      offline: offline
