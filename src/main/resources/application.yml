@@ -1,0 +1,12 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      show-sql: true
+      hibernate:
+        ddl-auto: validate
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/payments
+    username: tech
+    password: test
