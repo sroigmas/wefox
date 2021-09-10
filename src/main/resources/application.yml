@@ -1,4 +1,6 @@
 spring:
+  application.name: payments
+
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     properties:
@@ -15,6 +17,25 @@ spring:
     bootstrap-servers: localhost:29092
     consumer:
       group-id: payments
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json:
+          trusted.packages: com.wefox.payments.dto
+          value.default.type: com.wefox.payments.dto.PaymentDto
     topics:
       online: online
       offline: offline
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.wefox: ${LOG_LEVEL_WEFOX:DEBUG}
+
+---
+
+spring:
+  config.activate.on-profile: test
+
