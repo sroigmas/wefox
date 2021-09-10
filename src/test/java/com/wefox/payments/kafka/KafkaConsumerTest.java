@@ -2,7 +2,7 @@ package com.wefox.payments.kafka;
 
 import com.wefox.payments.dto.PaymentDto;
 import com.wefox.payments.enums.PaymentType;
-import com.wefox.payments.service.PaymentsService;
+import com.wefox.payments.service.impl.KafkaServicePaymentsImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 public class KafkaConsumerTest {
 
   @Mock
-  private PaymentsService paymentsService;
+  private KafkaServicePaymentsImpl paymentsService;
 
   @InjectMocks
   private KafkaConsumer kafkaConsumer;
@@ -29,6 +29,6 @@ public class KafkaConsumerTest {
 
     kafkaConsumer.consume(paymentDto);
 
-    Mockito.verify(paymentsService).processPayment(paymentDto);
+    Mockito.verify(paymentsService).processMessage(paymentDto);
   }
 }
