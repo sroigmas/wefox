@@ -1,5 +1,18 @@
 spring:
+  profiles.active: default
   application.name: payments
+
+logging:
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
+  level:
+    root: ${LOG_LEVEL_ROOT:INFO}
+    com.wefox: ${LOG_LEVEL_WEFOX:DEBUG}
+
+---
+
+spring:
+  config.activate.on-profile: default
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -26,13 +39,6 @@ spring:
     topics:
       online: online
       offline: offline
-
-logging:
-  pattern:
-    console: "%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"
-  level:
-    root: ${LOG_LEVEL_ROOT:INFO}
-    com.wefox: ${LOG_LEVEL_WEFOX:DEBUG}
 
 ---
 
