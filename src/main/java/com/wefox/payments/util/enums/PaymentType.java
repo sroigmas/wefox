@@ -1,4 +1,4 @@
-package com.wefox.payments.enums;
+package com.wefox.payments.util.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
