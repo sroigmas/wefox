@@ -34,7 +34,7 @@ public class KafkaServicePaymentsImpl implements KafkaService<PaymentDto> {
         savePayment(paymentDto, account);
       }
     }, () -> {
-      String message = String.format("Missing account with id '%d'", paymentDto.getAccountId());
+      String message = String.format("Missing account with id %d", paymentDto.getAccountId());
       log.warn(message);
       restService.logError(paymentDto.getPaymentId(), ErrorType.OTHER, message);
     });
