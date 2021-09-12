@@ -4,12 +4,14 @@ import com.wefox.payments.dto.PaymentDto;
 import com.wefox.payments.service.KafkaService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Profile;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
 @AllArgsConstructor
+@Profile("!test")
 public class KafkaConsumer {
 
   private KafkaService<PaymentDto> paymentsService;

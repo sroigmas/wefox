@@ -9,6 +9,10 @@ logging:
     root: ${LOG_LEVEL_ROOT:INFO}
     com.wefox: ${LOG_LEVEL_WEFOX:DEBUG}
 
+rest:
+  gateway.url: http://localhost:9000/payment
+  log.url: http://localhost:9000/log
+
 ---
 
 spring:
@@ -45,3 +49,8 @@ spring:
 spring:
   config.activate.on-profile: test
 
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
