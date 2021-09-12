@@ -16,11 +16,21 @@ public class KafkaConsumer {
 
   private KafkaService<PaymentDto> paymentsService;
 
-  @KafkaListener(topics = {"${spring.kafka.topics.online}", "${spring.kafka.topics.offline}"},
+  @KafkaListener(topics = "${spring.kafka.topics.online}",
       groupId = "${spring.kafka.consumer.group-id}")
-  public void consume(PaymentDto paymentDto) {
-    log.info("Received payment with id '{}' for account '{}'",
-        paymentDto.getPaymentId(), paymentDto.getAccountId());
+  public void consumeOnlinePayment(PaymentDto paymentDto) {
+    consumePayment(paymentDto);
+  }
+
+  @KafkaListener(topics = "${spring.kafka.topics.offline}",
+      groupId = "${spring.kafka.consumer.group-id}")
+  public void consumeOfflinePayment(PaymentDto paymentDto) {
+    consumePayment(paymentDto);
+  }
+
+  private void consumePayment(PaymentDto paymentDto) {
+    log.info("Received {} payment with id '{}' for account '{}'",
+        paymentDto.getPaymentType().name(), paymentDto.getPaymentId(), paymentDto.getAccountId());
     paymentsService.processMessage(paymentDto);
   }
 }

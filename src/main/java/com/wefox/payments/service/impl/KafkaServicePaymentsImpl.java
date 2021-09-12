@@ -8,6 +8,7 @@ import com.wefox.payments.repository.PaymentRepository;
 import com.wefox.payments.service.KafkaService;
 import com.wefox.payments.service.RestService;
 import com.wefox.payments.util.enums.ErrorType;
+import com.wefox.payments.util.enums.PaymentType;
 import com.wefox.payments.util.mapper.PaymentMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,8 @@ public class KafkaServicePaymentsImpl implements KafkaService<PaymentDto> {
   @Override
   public void processMessage(PaymentDto paymentDto) {
     accountRepository.findById(paymentDto.getAccountId()).ifPresentOrElse(account -> {
-      if (restService.isValidPayment(paymentDto)) {
+      if (PaymentType.OFFLINE.equals(paymentDto.getPaymentType())
+          || restService.isValidPayment(paymentDto)) {
         savePayment(paymentDto, account);
       }
     }, () -> {
